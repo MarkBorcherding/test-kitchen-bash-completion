@@ -1,5 +1,5 @@
 __kitchen_instance_list () {
-  echo "$(kitchen list | awk '{print $1}'| perl -pe 's/\e\[?.*?[\@-~]//g'| grep -v Instance )"
+  echo "$(kitchen list --bare )"
 }
 
 __kitchen_options () {
