@@ -1,5 +1,10 @@
 __kitchen_instance_list () {
-  echo "$(kitchen list | awk '{print $1}'| perl -pe 's/\e\[?.*?[\@-~]//g'| grep -v Instance )"
+  # cache to .kitchen.list.yml
+  if [[ .kitchen.yml -nt .kitchen.list.yml || .kitchen.local.yml -nt .kitchen.list.yml ]]; then
+    # update list if config has updated
+    kitchen list --bare > .kitchen.list.yml      
+  fi
+  cat .kitchen.list.yml
 }
 
 __kitchen_options () {
@@ -8,7 +13,7 @@ __kitchen_options () {
   COMPREPLY=()
 
   case $prev in
-    login|converge|create|destroy|login|test|verify)
+    login|converge|create|destroy|list|login|test|verify)
       COMPREPLY=( $(compgen -W "$(__kitchen_instance_list)" -- ${cur} ))
       return 0
       ;;
