@@ -13,7 +13,7 @@ __kitchen_options () {
   COMPREPLY=()
 
   case $prev in
-    login|converge|create|destroy|list|login|test|verify)
+    converge|create|destroy|diagnose|list|login|setup|test|verify)
       COMPREPLY=( $(compgen -W "$(__kitchen_instance_list)" -- ${cur} ))
       return 0
       ;;
@@ -22,7 +22,7 @@ __kitchen_options () {
       return 0
       ;;
     *)
-      COMPREPLY=( $(compgen -W "console converge create destroy driver driver driver driver help init list login setup test verify version"  -- ${cur} ))
+      COMPREPLY=( $(compgen -W "console converge create destroy driver help init list login setup test verify version"  -- ${cur} ))
       return 0
       ;;
   esac
